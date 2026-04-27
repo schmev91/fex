@@ -1,0 +1,11 @@
+[
+  { "symbol": "EURUSD", "pipSize": 0.0001, "contractSize": 100000, "category": "forex" },
+  { "symbol": "GBPUSD", "pipSize": 0.0001, "contractSize": 100000, "category": "forex" },
+  { "symbol": "USDJPY", "pipSize": 0.01, "contractSize": 100000, "category": "forex" },
+  { "symbol": "AUDUSD", "pipSize": 0.0001, "contractSize": 100000, "category": "forex" },
+  { "symbol": "USDCAD", "pipSize": 0.0001, "contractSize": 100000, "category": "forex" },
+  { "symbol": "USDCHF", "pipSize": 0.0001, "contractSize": 100000, "category": "forex" },
+  { "symbol": "NZDUSD", "pipSize": 0.0001, "contractSize": 100000, "category": "forex" },
+  { "symbol": "XAUUSD", "pipSize": 0.01, "contractSize": 100, "category": "commodity" },
+  { "symbol": "XAGUSD", "pipSize": 0.01, "contractSize": 5000, "category": "commodity" }
+]
