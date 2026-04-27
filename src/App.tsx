@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { MainNavigation } from './components/layout/MainNavigation';
 import { ThemeSwitcher } from './components/shared/ThemeSwitcher';
 import { usePreferencesStore } from './store/usePreferencesStore';
