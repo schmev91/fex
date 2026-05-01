@@ -1,89 +1,67 @@
 # Feature Specification: Fex Pip Calculator
 
-**Feature Branch**: `001-fex-pip-calculator`  
-**Created**: 2026-04-27  
+**Feature Branch**: `002-fex-pip-calculator`  
+**Created**: 2026-04-30  
 **Status**: Draft  
-**Input**: Comprehensive plan for a highly optimized, comfortable Forex Pip Calculator website named "Fex".
+**Input**: User description: "Implement a pip calculator for the Fex platform."
 
 ## User Scenarios & Testing *(mandatory)*
 
-### User Story 1 - Risk-First Position Sizing (Priority: P1)
+### User Story 1 - Calculate Trade Risk (Priority: P1)
 
-As a trader, I want to calculate my recommended lot size based on my account balance and risk percentage so that I can manage my risk effectively before entering a trade.
+A trader wants to calculate the risk of a trade in pips and currency value to manage their exposure.
 
-**Why this priority**: Risk management is the most critical aspect of trading; determining position size is the primary reason traders use calculators.
+**Why this priority**: Core functionality needed for risk management.
 
-**Independent Test**: Can be fully tested by inputting balance (e.g., $10,000), risk (1%), and stop loss (20 pips) to receive a specific lot size (e.g., 0.50 lots for EURUSD).
+**Independent Test**: Can be tested by entering trade details and verifying the pip and currency value output matches expected manual calculation.
 
 **Acceptance Scenarios**:
 
-1. **Given** a $10,000 balance and 1% risk, **When** I enter a 20 pip stop loss for EUR/USD, **Then** I should see a recommended lot size of 0.50.
-2. **Given** a 0.50 lot size, **When** I toggle "Reverse" mode, **Then** I should see that my risk is 1% of my balance.
+1. **Given** a user has entered the trading pair, position size, and entry/exit price, **When** they request the calculation, **Then** the system displays the total pips lost/gained and the equivalent value in the account currency.
+2. **Given** an invalid price, **When** they request the calculation, **Then** the system shows an error message.
 
 ---
 
-### User Story 2 - Real-Time Pip Value Calculation (Priority: P1)
+### User Story 2 - Account Currency Selection (Priority: P2)
 
-As a trader, I want to see the value of a pip for different lot sizes and currency pairs instantly so that I know exactly how much each price movement affects my profit/loss.
+A trader wants to calculate risk in their specific account currency (e.g., USD, EUR).
 
-**Why this priority**: Understanding the monetary value of a pip is fundamental to all other calculations.
+**Why this priority**: Users have different account base currencies.
 
-**Independent Test**: Select a pair (e.g., USD/JPY) and lot size (1.00) and verify the pip value in the account currency matches the standard formula.
+**Independent Test**: Can be tested by changing the account currency and observing the change in converted risk value.
 
 **Acceptance Scenarios**:
 
-1. **Given** EUR/USD and a Standard Lot (100k), **When** the account currency is USD, **Then** the pip value must be $10.00.
-2. **Given** USD/JPY and a Micro Lot (1k), **When** the account currency is USD, **Then** the pip value should be approximately $0.09 (depending on the current price).
+1. **Given** a trader has an account in USD, **When** they select USD as the currency, **Then** the conversion values are calculated using the current USD exchange rates.
 
 ---
-
-### User Story 3 - Trade Journaling & Persistence (Priority: P2)
-
-As a trader, I want my calculations and trade plans to be saved automatically so that I can review my history and return to my preferred settings without re-entering data.
-
-**Why this priority**: Comfort and workflow efficiency; traders often trade the same pairs with the same risk profiles.
-
-**Independent Test**: Enter values, refresh the page, and verify that all inputs and the history table remain unchanged.
-
-**Acceptance Scenarios**:
-
-1. **Given** I have added 5 trades to the journal, **When** I refresh the browser, **Then** those 5 trades should still be visible in the history table.
-2. **Given** I have changed the theme to "Dark Mode", **When** I return to the site later, **Then** the site should still be in "Dark Mode".
 
 ## Requirements *(mandatory)*
 
 ### Functional Requirements
 
-- **FR-001**: System MUST provide a Position Size Calculator with inputs for Balance, Risk %, Stop Loss (pips), and Pair.
-- **FR-002**: System MUST calculate Pip Values for Standard, Mini, Micro, and Custom lot sizes.
-- **FR-003**: System MUST calculate Profit/Loss and Risk-Reward ratios based on Entry, SL, and TP levels.
-- **FR-004**: System MUST support Margin calculations based on user-selectable leverage (e.g., 1:100, 1:500).
-- **FR-005**: System MUST persist all user settings, presets, and trade history to `localStorage`.
-- **FR-006**: System MUST support light and dark modes with system preference detection.
-- **FR-007**: System MUST support a comprehensive list of Forex pairs, Gold (XAUUSD), and Silver (XAGUSD).
-- **FR-008**: System MUST perform all calculations in real-time (onInput) without requiring a "Calculate" button.
-- **FR-009**: System MUST allow exporting trade history as a CSV file.
-- **FR-010**: System MUST include a "Quick Trade Planner" dashboard for multi-scenario analysis.
+- **FR-001**: System MUST allow users to input currency pair, position size, and trade prices.
+- **FR-002**: System MUST calculate pip value based on standard market conventions for the selected pair.
+- **FR-003**: System MUST convert the risk value into the user's account base currency.
+- **FR-004**: System MUST handle at least 50 major currency pairs.
+- **FR-005**: System MUST provide feedback for invalid inputs (e.g., negative price).
 
 ### Key Entities
 
-- **TradeEntry**: Represents a calculated trade setup (Pair, Entry, SL, TP, Lot Size, Risk Amount, Date).
-- **UserPreferences**: Stores account currency, default risk %, default leverage, favorite pairs, and theme.
-- **Instrument**: Stores pip size definitions and contract sizes for various pairs and commodities.
+- **Trading Pair**: Represents the currency pair (e.g., EUR/USD).
+- **Trade Details**: Inputs for calculation (pair, size, price).
+- **Result**: The output containing pip value and currency value.
 
 ## Success Criteria *(mandatory)*
 
 ### Measurable Outcomes
 
-- **SC-001**: Users can complete a position size calculation in under 10 seconds.
-- **SC-002**: All calculations must be accurate to at least 4 decimal places for pip values.
-- **SC-003**: 100% of inputs and history must persist across browser restarts via `localStorage`.
-- **SC-004**: The application MUST be fully functional offline once loaded.
-- **SC-005**: UI components must be touch-friendly with minimum tap target sizes of 44x44 pixels for mobile comfort.
+- **SC-001**: Users can complete a pip calculation in under 15 seconds.
+- **SC-002**: 98% accuracy compared to standard market pip calculation formulas.
+- **SC-003**: System supports calculation across all major currency pairs listed in the application.
 
 ## Assumptions
 
-- **AS-001**: Users have a modern web browser that supports `localStorage` and CSS Variables.
-- **AS-002**: Current exchange rates for pip value calculations will be stored locally or hardcoded for the "frontend-only" requirement, with an option for manual price input.
-- **AS-003**: The primary account currency for most users is USD, but other majors will be supported.
-- **AS-004**: "Pip" definitions follow industry standards (0.0001 for 5-decimal pairs, 0.01 for JPY pairs).
+- Market exchange rates are updated at a frequency suitable for estimation.
+- Standard rounding rules for financial calculations are acceptable.
+- The UI handles the input and output display without external library dependencies for the core math.

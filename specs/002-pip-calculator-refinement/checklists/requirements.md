@@ -1,4 +1,4 @@
-# Specification Quality Checklist: Fex Pip Calculator
+# Specification Quality Checklist: Fex Pip Calculator Refinement
 
 **Purpose**: Validate specification completeness and quality before proceeding to planning
 **Created**: 2026-04-30

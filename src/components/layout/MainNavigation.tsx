@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
 import { PipCalculator } from '../calculators/PipCalculator';
 import { PositionSizeCalculator } from '../calculators/PositionSizeCalculator';
-import { TradeJournal } from '../journal/TradeJournal';
-import { LayoutGrid, Ruler, BookText } from 'lucide-react';
+import { ScenarioList } from '../scenarios/ScenarioList';
+import { LayoutGrid, Ruler } from 'lucide-react';
 
 export const MainNavigation: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'risk' | 'pip' | 'journal'>('risk');
+  const [activeTab, setActiveTab] = useState<'risk' | 'pip'>('risk');
 
   const tabs = [
     { id: 'risk', label: 'Position Size', icon: <LayoutGrid className="w-5 h-5" /> },
     { id: 'pip', label: 'Pip Value', icon: <Ruler className="w-5 h-5" /> },
-    { id: 'journal', label: 'Journal', icon: <BookText className="w-5 h-5" /> },
   ];
 
   return (
@@ -32,9 +31,13 @@ export const MainNavigation: React.FC = () => {
       </div>
 
       <div className="transition-all duration-300">
-        {activeTab === 'risk' && <PositionSizeCalculator />}
+        {activeTab === 'risk' && (
+          <div className="flex flex-col gap-6">
+            <PositionSizeCalculator />
+            <ScenarioList />
+          </div>
+        )}
         {activeTab === 'pip' && <PipCalculator />}
-        {activeTab === 'journal' && <TradeJournal />}
       </div>
     </div>
   );

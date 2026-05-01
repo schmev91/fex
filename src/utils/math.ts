@@ -46,6 +46,26 @@ export const calculateLotSize = (
 };
 
 /**
+ * Calculates the required position size (lots) based on USD risk and pip risk.
+ * Formula: Lots = Risk USD / (Risk Pips * Pip Value Per Lot)
+ */
+export const calculatePositionSize = (
+  riskUSD: number,
+  riskPips: number,
+  pipValuePerLot: number
+): number => {
+  try {
+    if (riskPips <= 0 || pipValuePerLot <= 0) return 0;
+
+    const lots = new Decimal(riskUSD).div(new Decimal(riskPips).mul(pipValuePerLot));
+
+    return lots.toDecimalPlaces(2).toNumber();
+  } catch {
+    return 0;
+  }
+};
+
+/**
  * Calculates Profit/Loss in currency.
  */
 export const calculatePL = (
