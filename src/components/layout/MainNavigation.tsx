@@ -18,7 +18,7 @@ export const MainNavigation: React.FC = () => {
         {tabs.map((tab) => (
           <button
             key={tab.id}
-            onClick={() => setActiveTab(tab.id as any)}
+            onClick={() => setActiveTab(tab.id as 'risk' | 'pip')}
             className={`flex items-center justify-center gap-2 flex-1 min-w-[120px] py-3 px-4 rounded-xl font-bold transition-all duration-200
               ${activeTab === tab.id 
                 ? 'bg-accent text-gray-900 shadow-sm scale-[1.02]' 
